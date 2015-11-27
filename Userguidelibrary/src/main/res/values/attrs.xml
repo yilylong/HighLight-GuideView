@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="UserGuideView">
+
+        <attr name="HighlightViewStyle" format="enum">
+            <enum name="rect" value="0"/>
+            <enum name="circle" value="1"/>
+            <enum name="oval" value="2"/>
+        </attr>
+        <attr name="tipView" format="reference" />
+        <attr name="maskColor" format="reference|color" />
+
+    </declare-styleable>
+
+</resources>
