@@ -13,7 +13,8 @@ How To Useage
 ----
 布局文件中引入UserGuideView然后：
 
-    guideView.setHighLightView(UserGuideTestActivity.this,convertView);
+<del>guideView.setHighLightView(UserGuideTestActivity.this,convertView);</del>
+
 
 传入当前需要高亮view 所在Activity 和 需要高亮的view即可
 
