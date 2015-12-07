@@ -32,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:HighlightViewStyle="oval"
+        app:MaskBlurStyle="solid"
         app:tipView="@mipmap/tip_view" />
 
 </FrameLayout>

@@ -8,6 +8,10 @@
             <enum name="circle" value="1"/>
             <enum name="oval" value="2"/>
         </attr>
+        <attr name="MaskBlurStyle" format="enum">
+            <enum name="solid" value="0"/>
+            <enum name="normal" value="1"/>
+        </attr>
         <attr name="tipView" format="reference" />
         <attr name="maskColor" format="reference|color" />
 

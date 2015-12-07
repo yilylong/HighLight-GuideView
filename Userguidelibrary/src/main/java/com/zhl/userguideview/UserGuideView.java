@@ -28,6 +28,8 @@ public class UserGuideView extends View {
     public static final int VIEWSTYLE_RECT=0;
     public static final int VIEWSTYLE_CIRCLE=1;
     public static final int VIEWSTYLE_OVAL=2;
+    public static final int MASKBLURSTYLE_SOLID=0;
+    public static final int MASKBLURSTYLE_NORMAL=1;
     private Bitmap fgBitmap;// 前景
     private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// 指示箭头
     private Canvas mCanvas;// 绘制蒙版层的画布
@@ -38,6 +40,7 @@ public class UserGuideView extends View {
     private int borderWitdh=10;
     private int margin=40;
     private int highLightStyle = VIEWSTYLE_RECT;
+    public int maskblurstyle = MASKBLURSTYLE_SOLID;
     private Bitmap tipBitmap;
     private int radius;
     private int maskColor = 0x99000000;// 蒙版层颜色
@@ -56,6 +59,7 @@ public class UserGuideView extends View {
         if(attrs!=null){
             TypedArray array =  context.obtainStyledAttributes(attrs, R.styleable.UserGuideView);
             highLightStyle = array.getInt(R.styleable.UserGuideView_HighlightViewStyle, VIEWSTYLE_RECT);
+            maskblurstyle = array.getInt(R.styleable.UserGuideView_MaskBlurStyle, MASKBLURSTYLE_SOLID);
             BitmapDrawable drawable = (BitmapDrawable) array.getDrawable(R.styleable.UserGuideView_tipView);
             maskColor = array.getColor(R.styleable.UserGuideView_maskColor,maskColor);
             if(drawable!=null){
@@ -99,8 +103,17 @@ public class UserGuideView extends View {
         mPaint.setARGB(0, 255, 0, 0);
         // 设置混合模式为DST_IN
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        BlurMaskFilter.Blur blurStyle  = null;
+        switch (maskblurstyle){
+            case MASKBLURSTYLE_SOLID:
+                blurStyle = BlurMaskFilter.Blur.SOLID;
+                break;
+            case MASKBLURSTYLE_NORMAL:
+                blurStyle = BlurMaskFilter.Blur.NORMAL;
+                break;
+        }
 
-        mPaint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.NORMAL));
+        mPaint.setMaskFilter(new BlurMaskFilter(15, blurStyle));
 
         // 生成前景图Bitmap
         fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ARGB_8888);
