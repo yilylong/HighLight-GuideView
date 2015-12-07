@@ -41,7 +41,6 @@ public class UserGuideView extends View {
     private Bitmap tipBitmap;
     private int radius;
     private int maskColor = 0x99000000;// 蒙版层颜色
-    private Activity activity;
     private OnDismissListener onDismissListener;
     private int statusBarHeight = 66;// 状态栏高度
 
@@ -134,7 +133,11 @@ public class UserGuideView extends View {
         int vWidth = targetView.getWidth();
         int vHeight = targetView.getHeight();
 
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        ViewGroup decorView = null;
+        Context context = this.getContext();
+        if(context instanceof Activity){
+            decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView();
+        }
         View temp = targetView;
         while(temp!=decorView){
             temp = (View) temp.getParent();
@@ -197,11 +200,9 @@ public class UserGuideView extends View {
 
     /**
      * 设置需要高亮的View
-     * @param activty
      * @param targetView
      */
-    public void setHighLightView(Activity activty,View targetView){
-            this.activity = activty;
+    public void setHighLightView(View targetView){
             this.targetView = targetView;
             invalidate();
     }

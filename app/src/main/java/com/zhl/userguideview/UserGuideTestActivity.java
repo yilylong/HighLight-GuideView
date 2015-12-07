@@ -61,7 +61,7 @@ public class UserGuideTestActivity extends Activity {
 //                guideView.setTipView(BitmapFactory.decodeResource(getResources(),R.mipmap.sidebar_photo));
                 // 当前主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
                 guideView.setStatusBarHeight(0);
-                guideView.setHighLightView(UserGuideTestActivity.this,convertView);
+                guideView.setHighLightView(convertView);
             }
            return convertView;
         }
