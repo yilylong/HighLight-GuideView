@@ -100,7 +100,7 @@ public class UserGuideView extends View {
         // 设置混合模式为DST_IN
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
 
-        mPaint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.SOLID));
+        mPaint.setMaskFilter(new BlurMaskFilter(15, BlurMaskFilter.Blur.NORMAL));
 
         // 生成前景图Bitmap
         fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ARGB_8888);
