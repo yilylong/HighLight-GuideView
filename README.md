@@ -25,6 +25,8 @@ How To Useage
 
 蒙版层颜色 属性 app：maskColor
 
+高亮框边缘模糊效果 属性  app:MaskBlurStyle="solid" normal/solid
+
 默认去掉了状态栏高度 当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
 guideView.setStatusBarHeight(0);
 
