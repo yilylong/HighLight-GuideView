@@ -27,8 +27,8 @@ How To Useage
 
 高亮框边缘模糊效果 属性  app:MaskBlurStyle="solid" normal/solid
 
-默认去掉了状态栏高度 当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
-guideView.setStatusBarHeight(0);
+默认去掉了状态栏高度 <del>当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
+guideView.setStatusBarHeight(0);</del> 修改了状态栏高度的获取方式不需要再调用这个方法。
 
 详情参考Demo
 
