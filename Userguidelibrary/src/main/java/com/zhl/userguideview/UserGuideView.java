@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
@@ -45,7 +46,7 @@ public class UserGuideView extends View {
     private int radius;
     private int maskColor = 0x99000000;// 蒙版层颜色
     private OnDismissListener onDismissListener;
-    private int statusBarHeight = 66;// 状态栏高度
+    private int statusBarHeight = 0;// 状态栏高度
 
     public UserGuideView(Context context){
         this(context,null);
@@ -87,6 +88,9 @@ public class UserGuideView extends View {
         // 获取屏幕宽高
         screenW = screenSize[0];
         screenH = screenSize[1];
+        Rect frame = new Rect();
+        ((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        statusBarHeight = frame.top;
     }
 
     /**
