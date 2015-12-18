@@ -16,7 +16,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.zhl.userguideview.userguidelibrary.R;
 
@@ -142,28 +141,41 @@ public class UserGuideView extends View {
         }
         // 绘制前景
         canvas.drawBitmap(fgBitmap, 0, 0, null);
-
-        int left = targetView.getLeft();
-        int top = targetView.getTop();
+//        int left = targetView.getLeft();
+//        int top = targetView.getTop();
+        int left = 0;
+        int top = 0;
         int right = 0;
         int bottom = 0;
         int vWidth = targetView.getWidth();
         int vHeight = targetView.getHeight();
 
-        ViewGroup decorView = null;
-        Context context = this.getContext();
-        if(context instanceof Activity){
-            decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView();
-        }
-        View temp = targetView;
-        while(temp!=decorView){
-            temp = (View) temp.getParent();
-            left+=temp.getLeft();
-            top+=temp.getTop();
-        }
-        top -= statusBarHeight;
-        right = left+vWidth;
-        bottom = top+vHeight;
+//        ViewGroup decorView = null;
+//        Context context = this.getContext();
+//        if(context instanceof Activity){
+//            decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView();
+//        }
+//        View temp = targetView;
+//        while(temp!=decorView){
+//            temp = (View) temp.getParent();
+//            if(temp==null){
+//                break;
+//            }
+//            left+=temp.getLeft();
+//            top+=temp.getTop();
+//        }
+//        top -= statusBarHeight;
+//        right = left+vWidth;
+//        bottom = top+vHeight;
+
+
+        Rect tagetRect = new Rect();
+        targetView.getGlobalVisibleRect(tagetRect);
+        tagetRect.offset(0, -statusBarHeight);
+        left = tagetRect.left;
+        top = tagetRect.top;
+        right = tagetRect.right;
+        bottom = tagetRect.bottom;
 
         switch (highLightStyle){
             case VIEWSTYLE_RECT:

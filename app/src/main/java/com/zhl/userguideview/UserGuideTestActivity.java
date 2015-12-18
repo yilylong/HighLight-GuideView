@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhl.userguideview.userguideview.R;
@@ -19,11 +20,14 @@ public class UserGuideTestActivity extends Activity {
     private String[] datas = new String[]{"收藏","字体大小","软件设置","夜间模式"};
     GridView mGridView;
     private UserGuideView guideView;
+    private ImageView icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_userguide);
         guideView = (UserGuideView) findViewById(R.id.guideView);
+//        icon = (ImageView) findViewById(R.id.icon);
+//        guideView.setHighLightView(icon);
         mGridView = (GridView) findViewById(R.id.gridview);
         mGridView.setAdapter(new MyAaapter());
     }
@@ -59,8 +63,6 @@ public class UserGuideTestActivity extends Activity {
             viewHolder.textView.setText(datas[position]);
             if(position==3){
 //                guideView.setTipView(BitmapFactory.decodeResource(getResources(),R.mipmap.sidebar_photo));
-                // 当前主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
-                guideView.setStatusBarHeight(0);
                 guideView.setHighLightView(convertView);
             }
            return convertView;

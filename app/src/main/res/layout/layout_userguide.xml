@@ -21,8 +21,17 @@
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:numColumns="2" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@mipmap/ic_launcher" />
 
     </LinearLayout>
 
@@ -34,5 +43,6 @@
         app:HighlightViewStyle="oval"
         app:MaskBlurStyle="solid"
         app:tipView="@mipmap/tip_view" />
+
 
 </FrameLayout>
