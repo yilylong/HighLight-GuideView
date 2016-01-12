@@ -239,6 +239,13 @@ public class UserGuideView extends View {
         this.touchOutsideCancel = cancel;
     }
 
+	/**
+     * 设置额外的边框宽度
+     * @param borderWidth
+     */
+    public void setBorderWidth(int borderWidth){
+    	this.borderWitdh = borderWidth;
+    }
     /**
      * 设置提示的图片
      * @param bitmap
