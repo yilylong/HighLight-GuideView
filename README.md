@@ -11,6 +11,8 @@
 
 How To Useage
 ----
+引入依赖 compile 'com.zhl.userguideview:Userguidelibrary:1.0.0'
+
 布局文件中引入UserGuideView然后：
 
 <del>guideView.setHighLightView(UserGuideTestActivity.this,convertView);</del>

@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View.MeasureSpec;
 
 /**
- * æµ‹ç»˜å·¥å…·ç±»
+ * ²â»æ¹¤¾ßÀà
  * @since 2014/11/19
  */
 public final class MeasureUtil {
@@ -17,11 +17,11 @@ public final class MeasureUtil {
 	public static final int RATION_HEIGHT = 1;
 	
 	/**
-	 * è·å–å±å¹•å°ºå¯¸
+	 * »ñÈ¡ÆÁÄ»³ß´ç
 	 * 
 	 * @param activity
 	 *            Activity
-	 * @return å±å¹•å°ºå¯¸åƒç´ å€¼ï¼Œä¸‹æ ‡ä¸º0çš„å€¼ä¸ºå®½ï¼Œä¸‹æ ‡ä¸º1çš„å€¼ä¸ºé«˜
+	 * @return ÆÁÄ»³ß´çÏñËØÖµ£¬ÏÂ±êÎª0µÄÖµÎª¿í£¬ÏÂ±êÎª1µÄÖµÎª¸ß
 	 */
 	public static int[] getScreenSize(Activity activity) {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -30,36 +30,36 @@ public final class MeasureUtil {
 	}
 
 	/**
-	 * è‡ªå®šä¹‰æ§ä»¶è·å–æµ‹é‡åçš„å°ºå¯¸æ–¹æ³•
+	 * ×Ô¶¨Òå¿Ø¼ş»ñÈ¡²âÁ¿ºóµÄ³ß´ç·½·¨
 	 * 
 	 * @param measureSpec
-	 *            æµ‹é‡è§„æ ¼
+	 *            ²âÁ¿¹æ¸ñ
 	 * @param ratio
-	 *            å®½é«˜æ ‡è¯†
+	 *            ¿í¸ß±êÊ¶
 	 * @param mStr 
-	 * 			  è‡ªå®šä¹‰æ§ä»¶ä¸Šéœ€è¦æµ‹ç»˜çš„æ–‡å­—
+	 * 			  ×Ô¶¨Òå¿Ø¼şÉÏĞèÒª²â»æµÄÎÄ×Ö
 	 * @param mBitmap
-	 * 			  è‡ªå®šä¹‰æ§ä»¶ä¸Šéœ€è¦æµ‹ç»˜çš„å›¾ç‰‡
+	 * 			  ×Ô¶¨Òå¿Ø¼şÉÏĞèÒª²â»æµÄÍ¼Æ¬
 	 * @param paddings
-	 * 			 è‡ªå®šä¹‰æ§ä»¶çš„paddingå€¼int[]{left,top,right,bottom}
-	 * @return å®½æˆ–é«˜çš„æµ‹é‡å€¼
+	 * 			 ×Ô¶¨Òå¿Ø¼şµÄpaddingÖµint[]{left,top,right,bottom}
+	 * @return ¿í»ò¸ßµÄ²âÁ¿Öµ
 	 */
 	public static int getMeasureSize(int measureSpec, int ratio,String mStr,Bitmap mBitmap,Paint mPaint,int[] paddings) {
-		// å£°æ˜ä¸´æ—¶å˜é‡ä¿å­˜æµ‹é‡å€¼
+		// ÉùÃ÷ÁÙÊ±±äÁ¿±£´æ²âÁ¿Öµ
 		int result = 0;
 		/*
-		 * è·å–æµ‹é‡modeå’Œsize
+		 * »ñÈ¡²âÁ¿modeºÍsize
 		 */
 		int mode = MeasureSpec.getMode(measureSpec);
 		int size = MeasureSpec.getSize(measureSpec);
 		/*
-		 * åˆ¤æ–­modeçš„å…·ä½“å€¼
+		 * ÅĞ¶ÏmodeµÄ¾ßÌåÖµ
 		 */
 		switch (mode) {
-		case MeasureSpec.EXACTLY:// EXACTLYæ—¶ç›´æ¥èµ‹å€¼
+		case MeasureSpec.EXACTLY:// EXACTLYÊ±Ö±½Ó¸³Öµ
 			result = size;
 			break;
-		default:// é»˜è®¤æƒ…å†µä¸‹å°†UNSPECIFIEDå’ŒAT_MOSTä¸€å¹¶å¤„ç†
+		default:// Ä¬ÈÏÇé¿öÏÂ½«UNSPECIFIEDºÍAT_MOSTÒ»²¢´¦Àí
 			if (ratio == RATION_WIDTH) {
 				if(mStr!=null&&mBitmap!=null){
 					float textWidth = mPaint.measureText(mStr);
@@ -86,7 +86,7 @@ public final class MeasureUtil {
 			}
 
 			/*
-			 * AT_MOSTæ—¶åˆ¤æ–­sizeå’Œresultçš„å¤§å°å–å°å€¼
+			 * AT_MOSTÊ±ÅĞ¶ÏsizeºÍresultµÄ´óĞ¡È¡Ğ¡Öµ
 			 */
 			if (mode == MeasureSpec.AT_MOST) {
 				result = Math.min(result, size);

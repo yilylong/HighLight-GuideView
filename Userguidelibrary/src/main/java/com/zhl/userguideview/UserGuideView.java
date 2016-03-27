@@ -13,15 +13,15 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.zhl.userguideview.userguidelibrary.R;
 
 
 /**
- * æè¿°ï¼šä¸€ä¸ªç”¨äºâ€œåº”ç”¨æ–°ç‰¹æ€§â€çš„ç”¨æˆ·æŒ‡å¼•view
+ * ÃèÊö£ºÒ»¸öÓÃÓÚ¡°Ó¦ÓÃĞÂÌØĞÔ¡±µÄÓÃ»§Ö¸Òıview
  * Created by zhaohl on 2015-11-26.
  */
 public class UserGuideView extends View {
@@ -30,11 +30,11 @@ public class UserGuideView extends View {
     public static final int VIEWSTYLE_OVAL=2;
     public static final int MASKBLURSTYLE_SOLID=0;
     public static final int MASKBLURSTYLE_NORMAL=1;
-    private Bitmap fgBitmap;// å‰æ™¯
-    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// æŒ‡ç¤ºç®­å¤´
-    private Canvas mCanvas;// ç»˜åˆ¶è’™ç‰ˆå±‚çš„ç”»å¸ƒ
-    private Paint mPaint;// ç»˜åˆ¶è’™ç‰ˆå±‚ç”»ç¬”
-    private int screenW, screenH;// å±å¹•å®½é«˜
+    private Bitmap fgBitmap;// Ç°¾°
+    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// Ö¸Ê¾¼ıÍ·
+    private Canvas mCanvas;// »æÖÆÃÉ°æ²ãµÄ»­²¼
+    private Paint mPaint;// »æÖÆÃÉ°æ²ã»­±Ê
+    private int screenW, screenH;// ÆÁÄ»¿í¸ß
     private View targetView;
     private boolean touchOutsideCancel = true;
     private int borderWitdh=10;
@@ -43,9 +43,9 @@ public class UserGuideView extends View {
     public int maskblurstyle = MASKBLURSTYLE_SOLID;
     private Bitmap tipBitmap;
     private int radius;
-    private int maskColor = 0x99000000;// è’™ç‰ˆå±‚é¢œè‰²
+    private int maskColor = 0x99000000;// ÃÉ°æ²ãÑÕÉ«
     private OnDismissListener onDismissListener;
-    private int statusBarHeight = 0;// çŠ¶æ€æ é«˜åº¦
+    private int statusBarHeight = 0;// ×´Ì¬À¸¸ß¶È
 
     public UserGuideView(Context context){
         this(context,null);
@@ -67,47 +67,47 @@ public class UserGuideView extends View {
             }
             array.recycle();
         }
-        // è®¡ç®—å‚æ•°
+        // ¼ÆËã²ÎÊı
         cal(context);
 
-        // åˆå§‹åŒ–å¯¹è±¡
+        // ³õÊ¼»¯¶ÔÏó
         init(context);
     }
 
     /**
-     * è®¡ç®—å‚æ•°
+     * ¼ÆËã²ÎÊı
      *
      * @param context
-     *            ä¸Šä¸‹æ–‡ç¯å¢ƒå¼•ç”¨
+     *            ÉÏÏÂÎÄ»·¾³ÒıÓÃ
      */
     private void cal(Context context) {
-        // è·å–å±å¹•å°ºå¯¸æ•°ç»„
+        // »ñÈ¡ÆÁÄ»³ß´çÊı×é
         int[] screenSize = MeasureUtil.getScreenSize((Activity) context);
 
-        // è·å–å±å¹•å®½é«˜
+        // »ñÈ¡ÆÁÄ»¿í¸ß
         screenW = screenSize[0];
         screenH = screenSize[1];
         Rect frame = new Rect();
         ((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         statusBarHeight = frame.top;
-		 if(Build.VERSION.SDK_INT<Build.VERSION_CODES.KITKAT){
+		 if(Build.VERSION.SDK_INT< Build.VERSION_CODES.KITKAT){
         	statusBarHeight=44;
 		}
     }
 
     /**
-     * åˆå§‹åŒ–å¯¹è±¡
+     * ³õÊ¼»¯¶ÔÏó
      */
     private void init(Context context) {
 
-        // å…³é—­ç¡¬ä»¶åŠ é€Ÿ
+        // ¹Ø±ÕÓ²¼ş¼ÓËÙ
 //        setLayerType(LAYER_TYPE_SOFTWARE,null);
-        // å®ä¾‹åŒ–ç”»ç¬”å¹¶å¼€å¯å…¶æŠ—é”¯é½¿å’ŒæŠ—æŠ–åŠ¨
+        // ÊµÀı»¯»­±Ê²¢¿ªÆôÆä¿¹¾â³İºÍ¿¹¶¶¶¯
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
-        // è®¾ç½®ç”»ç¬”é€æ˜åº¦ä¸º0æ˜¯å…³é”®ï¼
+        // ÉèÖÃ»­±ÊÍ¸Ã÷¶ÈÎª0ÊÇ¹Ø¼ü£¡
         mPaint.setARGB(0, 255, 0, 0);
-        // è®¾ç½®æ··åˆæ¨¡å¼ä¸ºDST_IN
+        // ÉèÖÃ»ìºÏÄ£Ê½ÎªDST_IN
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         BlurMaskFilter.Blur blurStyle  = null;
         switch (maskblurstyle){
@@ -121,16 +121,16 @@ public class UserGuideView extends View {
 
         mPaint.setMaskFilter(new BlurMaskFilter(15, blurStyle));
 
-        // ç”Ÿæˆå‰æ™¯å›¾Bitmap
+        // Éú³ÉÇ°¾°Í¼Bitmap
         fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ARGB_8888);
 
-        // å°†å…¶æ³¨å…¥ç”»å¸ƒ
+        // ½«Æä×¢Èë»­²¼
         mCanvas = new Canvas(fgBitmap);
 
-        // ç»˜åˆ¶å‰æ™¯ç”»å¸ƒ
+        // »æÖÆÇ°¾°»­²¼
         mCanvas.drawColor(maskColor);
 
-        // å®ä¾‹åŒ–ç®­å¤´å›¾ç‰‡
+        // ÊµÀı»¯¼ıÍ·Í¼Æ¬
         jtDownRight = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_right);
         jtDownLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_left);
         jtUpLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_up_left);
@@ -142,7 +142,7 @@ public class UserGuideView extends View {
         if(targetView==null){
             return;
         }
-        // ç»˜åˆ¶å‰æ™¯
+        // »æÖÆÇ°¾°
         canvas.drawBitmap(fgBitmap, 0, 0, null);
 //        int left = targetView.getLeft();
 //        int top = targetView.getTop();
@@ -199,9 +199,9 @@ public class UserGuideView extends View {
 
         }
 
-        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// åä¸Š
+        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// Æ«ÉÏ
             int jtTop = highLightStyle==VIEWSTYLE_CIRCLE?bottom+radius-margin:bottom+margin;
-            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//åå·¦
+            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//Æ«×ó
                 canvas.drawBitmap(jtUpLeft,left+vWidth/2,jtTop,null);
                 if(tipBitmap!=null){
                     canvas.drawBitmap(tipBitmap,left+vWidth/2,jtTop+jtUpLeft.getHeight(),null);
@@ -231,7 +231,7 @@ public class UserGuideView extends View {
     }
 
     /**
-     * è®¾ç½®éœ€è¦é«˜äº®çš„View
+     * ÉèÖÃĞèÒª¸ßÁÁµÄView
      * @param targetView
      */
     public void setHighLightView(View targetView){
@@ -243,14 +243,14 @@ public class UserGuideView extends View {
     }
 
 	/**
-     * è®¾ç½®é¢å¤–çš„è¾¹æ¡†å®½åº¦
+     * ÉèÖÃ¶îÍâµÄ±ß¿ò¿í¶È
      * @param borderWidth
      */
     public void setBorderWidth(int borderWidth){
     	this.borderWitdh = borderWidth;
     }
     /**
-     * è®¾ç½®æç¤ºçš„å›¾ç‰‡
+     * ÉèÖÃÌáÊ¾µÄÍ¼Æ¬
      * @param bitmap
      */
     public void setTipView(Bitmap bitmap){
@@ -258,7 +258,7 @@ public class UserGuideView extends View {
     }
 
     /**
-     * è®¾ç½®è’™ç‰ˆé¢œè‰²
+     * ÉèÖÃÃÉ°æÑÕÉ«
      * @param maskColor
      */
     public void setMaskColor(int maskColor){
@@ -266,8 +266,8 @@ public class UserGuideView extends View {
     }
 
     /**
-     * è®¾ç½®çŠ¶æ€æ é«˜åº¦ é»˜è®¤æ˜¯å‡å»äº†ä¸€ä¸ªçŠ¶æ€æ é«˜åº¦ å¦‚æœä¸»é¢˜è®¾ç½®android:windowTranslucentStatus=true
-     * éœ€è¦è®¾ç½®çŠ¶æ€æ é«˜åº¦ä¸º0
+     * ÉèÖÃ×´Ì¬À¸¸ß¶È Ä¬ÈÏÊÇ¼õÈ¥ÁËÒ»¸ö×´Ì¬À¸¸ß¶È Èç¹ûÖ÷ÌâÉèÖÃandroid:windowTranslucentStatus=true
+     * ĞèÒªÉèÖÃ×´Ì¬À¸¸ß¶ÈÎª0
      * @param statusBarHeight
      */
     public void setStatusBarHeight(int statusBarHeight){
