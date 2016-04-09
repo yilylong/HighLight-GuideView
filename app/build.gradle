@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.zhl.userguideview"
-        minSdkVersion 21
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
