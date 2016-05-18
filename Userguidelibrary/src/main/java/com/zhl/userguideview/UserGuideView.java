@@ -21,7 +21,7 @@ import android.view.View;
 
 
 /**
- * ÃèÊö£ºÒ»¸öÓÃÓÚ¡°Ó¦ÓÃĞÂÌØĞÔ¡±µÄÓÃ»§Ö¸Òıview
+ * æè¿°ï¼šä¸€ä¸ªç”¨äºâ€œåº”ç”¨æ–°ç‰¹æ€§â€çš„ç”¨æˆ·æŒ‡å¼•view
  * Created by zhaohl on 2015-11-26.
  */
 public class UserGuideView extends View {
@@ -30,11 +30,11 @@ public class UserGuideView extends View {
     public static final int VIEWSTYLE_OVAL=2;
     public static final int MASKBLURSTYLE_SOLID=0;
     public static final int MASKBLURSTYLE_NORMAL=1;
-    private Bitmap fgBitmap;// Ç°¾°
-    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// Ö¸Ê¾¼ıÍ·
-    private Canvas mCanvas;// »æÖÆÃÉ°æ²ãµÄ»­²¼
-    private Paint mPaint;// »æÖÆÃÉ°æ²ã»­±Ê
-    private int screenW, screenH;// ÆÁÄ»¿í¸ß
+    private Bitmap fgBitmap;// å‰æ™¯
+    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// æŒ‡ç¤ºç®­å¤´
+    private Canvas mCanvas;// ç»˜åˆ¶è’™ç‰ˆå±‚çš„ç”»å¸ƒ
+    private Paint mPaint;// ç»˜åˆ¶è’™ç‰ˆå±‚ç”»ç¬”
+    private int screenW, screenH;// å±å¹•å®½é«˜
     private View targetView;
     private boolean touchOutsideCancel = true;
     private int borderWitdh=10;
@@ -43,9 +43,9 @@ public class UserGuideView extends View {
     public int maskblurstyle = MASKBLURSTYLE_SOLID;
     private Bitmap tipBitmap;
     private int radius;
-    private int maskColor = 0x99000000;// ÃÉ°æ²ãÑÕÉ«
+    private int maskColor = 0x99000000;// è’™ç‰ˆå±‚é¢œè‰²
     private OnDismissListener onDismissListener;
-    private int statusBarHeight = 0;// ×´Ì¬À¸¸ß¶È
+    private int statusBarHeight = 0;// çŠ¶æ€æ é«˜åº¦
 
     public UserGuideView(Context context){
         this(context,null);
@@ -67,24 +67,24 @@ public class UserGuideView extends View {
             }
             array.recycle();
         }
-        // ¼ÆËã²ÎÊı
+        // è®¡ç®—å‚æ•°
         cal(context);
 
-        // ³õÊ¼»¯¶ÔÏó
+        // åˆå§‹åŒ–å¯¹è±¡
         init(context);
     }
 
     /**
-     * ¼ÆËã²ÎÊı
+     * è®¡ç®—å‚æ•°
      *
      * @param context
-     *            ÉÏÏÂÎÄ»·¾³ÒıÓÃ
+     *            ä¸Šä¸‹æ–‡ç¯å¢ƒå¼•ç”¨
      */
     private void cal(Context context) {
-        // »ñÈ¡ÆÁÄ»³ß´çÊı×é
+        // è·å–å±å¹•å°ºå¯¸æ•°ç»„
         int[] screenSize = MeasureUtil.getScreenSize((Activity) context);
 
-        // »ñÈ¡ÆÁÄ»¿í¸ß
+        // è·å–å±å¹•å®½é«˜
         screenW = screenSize[0];
         screenH = screenSize[1];
         Rect frame = new Rect();
@@ -96,18 +96,18 @@ public class UserGuideView extends View {
     }
 
     /**
-     * ³õÊ¼»¯¶ÔÏó
+     * åˆå§‹åŒ–å¯¹è±¡
      */
     private void init(Context context) {
 
-        // ¹Ø±ÕÓ²¼ş¼ÓËÙ
+        // å…³é—­ç¡¬ä»¶åŠ é€Ÿ
 //        setLayerType(LAYER_TYPE_SOFTWARE,null);
-        // ÊµÀı»¯»­±Ê²¢¿ªÆôÆä¿¹¾â³İºÍ¿¹¶¶¶¯
+        // å®ä¾‹åŒ–ç”»ç¬”å¹¶å¼€å¯å…¶æŠ—é”¯é½¿å’ŒæŠ—æŠ–åŠ¨
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
-        // ÉèÖÃ»­±ÊÍ¸Ã÷¶ÈÎª0ÊÇ¹Ø¼ü£¡
+        // è®¾ç½®ç”»ç¬”é€æ˜åº¦ä¸º0æ˜¯å…³é”®ï¼
         mPaint.setARGB(0, 255, 0, 0);
-        // ÉèÖÃ»ìºÏÄ£Ê½ÎªDST_IN
+        // è®¾ç½®æ··åˆæ¨¡å¼ä¸ºDST_IN
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         BlurMaskFilter.Blur blurStyle  = null;
         switch (maskblurstyle){
@@ -121,16 +121,16 @@ public class UserGuideView extends View {
 
         mPaint.setMaskFilter(new BlurMaskFilter(15, blurStyle));
 
-        // Éú³ÉÇ°¾°Í¼Bitmap
-        fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ARGB_8888);
+        // ç”Ÿæˆå‰æ™¯å›¾Bitmap
+        fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ALPHA_8);
 
-        // ½«Æä×¢Èë»­²¼
+        // å°†å…¶æ³¨å…¥ç”»å¸ƒ
         mCanvas = new Canvas(fgBitmap);
 
-        // »æÖÆÇ°¾°»­²¼
+        // ç»˜åˆ¶å‰æ™¯ç”»å¸ƒ
         mCanvas.drawColor(maskColor);
 
-        // ÊµÀı»¯¼ıÍ·Í¼Æ¬
+        // å®ä¾‹åŒ–ç®­å¤´å›¾ç‰‡
         jtDownRight = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_right);
         jtDownLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_left);
         jtUpLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_up_left);
@@ -142,7 +142,7 @@ public class UserGuideView extends View {
         if(targetView==null){
             return;
         }
-        // »æÖÆÇ°¾°
+        // ç»˜åˆ¶å‰æ™¯
         canvas.drawBitmap(fgBitmap, 0, 0, null);
 //        int left = targetView.getLeft();
 //        int top = targetView.getTop();
@@ -199,9 +199,9 @@ public class UserGuideView extends View {
 
         }
 
-        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// Æ«ÉÏ
+        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// åä¸Š
             int jtTop = highLightStyle==VIEWSTYLE_CIRCLE?bottom+radius-margin:bottom+margin;
-            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//Æ«×ó
+            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//åå·¦
                 canvas.drawBitmap(jtUpLeft,left+vWidth/2,jtTop,null);
                 if(tipBitmap!=null){
                     canvas.drawBitmap(tipBitmap,left+vWidth/2,jtTop+jtUpLeft.getHeight(),null);
@@ -231,7 +231,7 @@ public class UserGuideView extends View {
     }
 
     /**
-     * ÉèÖÃĞèÒª¸ßÁÁµÄView
+     * è®¾ç½®éœ€è¦é«˜äº®çš„View
      * @param targetView
      */
     public void setHighLightView(View targetView){
@@ -243,14 +243,14 @@ public class UserGuideView extends View {
     }
 
 	/**
-     * ÉèÖÃ¶îÍâµÄ±ß¿ò¿í¶È
+     * è®¾ç½®é¢å¤–çš„è¾¹æ¡†å®½åº¦
      * @param borderWidth
      */
     public void setBorderWidth(int borderWidth){
     	this.borderWitdh = borderWidth;
     }
     /**
-     * ÉèÖÃÌáÊ¾µÄÍ¼Æ¬
+     * è®¾ç½®æç¤ºçš„å›¾ç‰‡
      * @param bitmap
      */
     public void setTipView(Bitmap bitmap){
@@ -258,7 +258,7 @@ public class UserGuideView extends View {
     }
 
     /**
-     * ÉèÖÃÃÉ°æÑÕÉ«
+     * è®¾ç½®è’™ç‰ˆé¢œè‰²
      * @param maskColor
      */
     public void setMaskColor(int maskColor){
@@ -266,8 +266,8 @@ public class UserGuideView extends View {
     }
 
     /**
-     * ÉèÖÃ×´Ì¬À¸¸ß¶È Ä¬ÈÏÊÇ¼õÈ¥ÁËÒ»¸ö×´Ì¬À¸¸ß¶È Èç¹ûÖ÷ÌâÉèÖÃandroid:windowTranslucentStatus=true
-     * ĞèÒªÉèÖÃ×´Ì¬À¸¸ß¶ÈÎª0
+     * è®¾ç½®çŠ¶æ€æ é«˜åº¦ é»˜è®¤æ˜¯å‡å»äº†ä¸€ä¸ªçŠ¶æ€æ é«˜åº¦ å¦‚æœä¸»é¢˜è®¾ç½®android:windowTranslucentStatus=true
+     * éœ€è¦è®¾ç½®çŠ¶æ€æ é«˜åº¦ä¸º0
      * @param statusBarHeight
      */
     public void setStatusBarHeight(int statusBarHeight){
