@@ -7,9 +7,9 @@
 传入一个需要高亮的view ID 但是gridview 或 listview 的item 里面ID 没法定位某一个view。
 所以改成 传入一个需要高亮的view 根据其位置绘出提示view
 
-![](userguide1.png)</br>
-![](userguide1.png)</br>
-![](userguide1.png)
+![](/guide1.png)</br>
+![](/guide2.png)</br>
+![](/guide3.png)
 
 How To Useage
 ----
