@@ -40,8 +40,9 @@
         android:id="@+id/guideView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:HighlightViewStyle="oval"
+        app:HighlightViewStyle="circle"
         app:MaskBlurStyle="solid"
+        app:maskColor="#aaa26956"
         app:tipView="@mipmap/tip_view" />
 
 

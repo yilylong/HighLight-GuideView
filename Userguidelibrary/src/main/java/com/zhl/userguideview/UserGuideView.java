@@ -37,7 +37,7 @@ public class UserGuideView extends View {
     private int screenW, screenH;// 屏幕宽高
     private View targetView;
     private boolean touchOutsideCancel = true;
-    private int borderWitdh=10;
+    private int borderOffset=20;
     private int margin=40;
     private int highLightStyle = VIEWSTYLE_RECT;
     public int maskblurstyle = MASKBLURSTYLE_SOLID;
@@ -122,8 +122,10 @@ public class UserGuideView extends View {
         mPaint.setMaskFilter(new BlurMaskFilter(15, blurStyle));
 
         // 生成前景图Bitmap
-        fgBitmap = Bitmap.createBitmap(screenW, screenH, Bitmap.Config.ALPHA_8);
-
+        fgBitmap = MeasureUtil.createBitmapSafely(screenW, screenH, Bitmap.Config.ARGB_8888,2);
+        if(fgBitmap==null){
+            throw new RuntimeException("out of memery cause fgbitmap create fail");
+        }
         // 将其注入画布
         mCanvas = new Canvas(fgBitmap);
 
@@ -180,13 +182,22 @@ public class UserGuideView extends View {
         right = tagetRect.right;
         bottom = tagetRect.bottom;
 
+        if(left==0){
+            left+=borderOffset;
+        }else if(top==0){
+            top+=borderOffset;
+        }else if(right==screenW){
+            right-=borderOffset;
+        }else if(bottom==screenH){
+            bottom-=borderOffset;
+        }
         switch (highLightStyle){
             case VIEWSTYLE_RECT:
-                RectF rect = new RectF(left-borderWitdh,top-borderWitdh,right+borderWitdh,bottom+borderWitdh);
+                RectF rect = new RectF(left,top,right,bottom);
                 mCanvas.drawRoundRect(rect, 20, 20, mPaint);
                 break;
             case VIEWSTYLE_CIRCLE:
-                radius = vWidth > vHeight ? vWidth / 2 -100: vHeight / 2-100;
+                radius = vWidth < vHeight ? vWidth / 2 +2*borderOffset: vHeight / 2+2*borderOffset;
                 if(radius<50){
                     radius = 100;
                 }
@@ -244,10 +255,10 @@ public class UserGuideView extends View {
 
 	/**
      * 设置额外的边框宽度
-     * @param borderWidth
+     * @param borderOffset
      */
-    public void setBorderWidth(int borderWidth){
-    	this.borderWitdh = borderWidth;
+    public void setBorderOffset(int borderOffset){
+    	this.borderOffset = borderOffset;
     }
     /**
      * 设置提示的图片

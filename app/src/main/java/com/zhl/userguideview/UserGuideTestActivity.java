@@ -17,7 +17,7 @@ import com.zhl.userguideview.userguideview.R;
  * Created by zhaohl on 2015-11-26.
  */
 public class UserGuideTestActivity extends Activity {
-    private String[] datas = new String[]{"收藏","字体大小","软件设置","夜间模式"};
+    private String[] datas = new String[]{"收藏","字体大小","软件设置","换肤"};
     GridView mGridView;
     private UserGuideView guideView;
     private ImageView icon;
