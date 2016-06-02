@@ -30,11 +30,11 @@ public class UserGuideView extends View {
     public static final int VIEWSTYLE_OVAL=2;
     public static final int MASKBLURSTYLE_SOLID=0;
     public static final int MASKBLURSTYLE_NORMAL=1;
-    private Bitmap fgBitmap;// 前景
-    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;// 指示箭头
-    private Canvas mCanvas;// 绘制蒙版层的画布
-    private Paint mPaint;// 绘制蒙版层画笔
-    private int screenW, screenH;// 屏幕宽高
+    private Bitmap fgBitmap;
+    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;
+    private Canvas mCanvas;
+    private Paint mPaint;
+    private int screenW, screenH;
     private View targetView;
     private boolean touchOutsideCancel = true;
     private int borderOffset=20;
@@ -43,9 +43,9 @@ public class UserGuideView extends View {
     public int maskblurstyle = MASKBLURSTYLE_SOLID;
     private Bitmap tipBitmap;
     private int radius;
-    private int maskColor = 0x99000000;// 蒙版层颜色
+    private int maskColor = 0x99000000;
     private OnDismissListener onDismissListener;
-    private int statusBarHeight = 0;// 状态栏高度
+    private int statusBarHeight = 0;
 
     public UserGuideView(Context context){
         this(context,null);
@@ -67,24 +67,14 @@ public class UserGuideView extends View {
             }
             array.recycle();
         }
-        // 计算参数
         cal(context);
 
-        // 初始化对象
         init(context);
     }
 
-    /**
-     * 计算参数
-     *
-     * @param context
-     *            上下文环境引用
-     */
     private void cal(Context context) {
-        // 获取屏幕尺寸数组
         int[] screenSize = MeasureUtil.getScreenSize((Activity) context);
 
-        // 获取屏幕宽高
         screenW = screenSize[0];
         screenH = screenSize[1];
         Rect frame = new Rect();
@@ -95,19 +85,12 @@ public class UserGuideView extends View {
 		}
     }
 
-    /**
-     * 初始化对象
-     */
     private void init(Context context) {
 
-        // 关闭硬件加速
 //        setLayerType(LAYER_TYPE_SOFTWARE,null);
-        // 实例化画笔并开启其抗锯齿和抗抖动
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
-        // 设置画笔透明度为0是关键！
         mPaint.setARGB(0, 255, 0, 0);
-        // 设置混合模式为DST_IN
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         BlurMaskFilter.Blur blurStyle  = null;
         switch (maskblurstyle){
@@ -121,18 +104,14 @@ public class UserGuideView extends View {
 
         mPaint.setMaskFilter(new BlurMaskFilter(15, blurStyle));
 
-        // 生成前景图Bitmap
         fgBitmap = MeasureUtil.createBitmapSafely(screenW, screenH, Bitmap.Config.ARGB_8888,2);
         if(fgBitmap==null){
             throw new RuntimeException("out of memery cause fgbitmap create fail");
         }
-        // 将其注入画布
         mCanvas = new Canvas(fgBitmap);
 
-        // 绘制前景画布
         mCanvas.drawColor(maskColor);
 
-        // 实例化箭头图片
         jtDownRight = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_right);
         jtDownLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_left);
         jtUpLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_up_left);
@@ -144,7 +123,6 @@ public class UserGuideView extends View {
         if(targetView==null){
             return;
         }
-        // 绘制前景
         canvas.drawBitmap(fgBitmap, 0, 0, null);
 //        int left = targetView.getLeft();
 //        int top = targetView.getTop();
@@ -210,9 +188,9 @@ public class UserGuideView extends View {
 
         }
 
-        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// 偏上
+        if(bottom<screenH/2||(screenH/2-top>bottom-screenH/2)){// top
             int jtTop = highLightStyle==VIEWSTYLE_CIRCLE?bottom+radius-margin:bottom+margin;
-            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//偏左
+            if(right<screenW/2||(screenW/2-left>right-screenW/2)){//left
                 canvas.drawBitmap(jtUpLeft,left+vWidth/2,jtTop,null);
                 if(tipBitmap!=null){
                     canvas.drawBitmap(tipBitmap,left+vWidth/2,jtTop+jtUpLeft.getHeight(),null);
@@ -242,26 +220,31 @@ public class UserGuideView extends View {
     }
 
     /**
-     * 设置需要高亮的View
+     * set the high light view
      * @param targetView
      */
     public void setHighLightView(View targetView){
             this.targetView = targetView;
             invalidate();
     }
+
+    /**
+     * set the TouchOutside Dismiss listener
+     * @param cancel
+     */
     public void setTouchOutsideDismiss(boolean cancel){
         this.touchOutsideCancel = cancel;
     }
 
 	/**
-     * 设置额外的边框宽度
+     * set offset
      * @param borderOffset
      */
     public void setBorderOffset(int borderOffset){
     	this.borderOffset = borderOffset;
     }
     /**
-     * 设置提示的图片
+     * set the tip bitmap
      * @param bitmap
      */
     public void setTipView(Bitmap bitmap){
@@ -269,7 +252,7 @@ public class UserGuideView extends View {
     }
 
     /**
-     * 设置蒙版颜色
+     * set cover mask color
      * @param maskColor
      */
     public void setMaskColor(int maskColor){
@@ -277,8 +260,6 @@ public class UserGuideView extends View {
     }
 
     /**
-     * 设置状态栏高度 默认是减去了一个状态栏高度 如果主题设置android:windowTranslucentStatus=true
-     * 需要设置状态栏高度为0
      * @param statusBarHeight
      */
     public void setStatusBarHeight(int statusBarHeight){
