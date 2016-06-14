@@ -20,78 +20,88 @@ allprojects {
     }
 }
 
-ext {
-    ARTIFACT_ID = 'UserGuideView'
-    VERSION_NAME = '1.0.1'
-    VERSION_CODE = 2
-
-    DESCRIPTION = 'an userguide view'
-
-    SITE_URL = 'https://github.com/yilylong/UserGuideView'
-    GIT_URL = 'https://github.com/yilylong/UserGuideView.git'
-    GROUP_NAME = 'com.zhl.userguideview'
-    COMPILE_SDK = 23
-    BUILD_TOOLS = '23.0.1'
-
-    MODULE_NAME = 'Userguidelibrary'
-
-    LICENSE = 'Apache-2.0'
-
-    DEVELOPER_ID = 'yilylong'
-    DEVELOPER_NAME = 'hailongzhao'
-    DEVELOPER_EMAIL = 'yilylong@163.com'
-
-    IS_UPLOADING = project.getGradle().startParameter.taskNames.any{it.contains('bintrayUpload')}
-}
-
-subprojects {
-    group = GROUP_NAME
-    version = VERSION_NAME
-
-    if (IS_UPLOADING && project.name in ['Userguidelibrary']) {
-        println project.name
-        apply plugin: 'maven'
-
-        gradle.taskGraph.whenReady { taskGraph ->
-            taskGraph.getAllTasks().find {
-                it.path == ":$project.name:generatePomFileForMavenPublication"
-            }.doLast {
-                file("build/publications/maven/pom-default.xml").delete()
-                println 'Overriding pom-file to make sure we can sync to maven central!'
-                pom {
-                    //noinspection GroovyAssignabilityCheck
-                    project {
-                        name "$project.name"
-                        artifactId ARTIFACT_ID
-                        packaging project.name == 'compiler' ? 'jar' : 'aar'
-                        description DESCRIPTION
-                        url SITE_URL
-                        version VERSION_NAME
-
-                        scm {
-                            url GIT_URL
-                            connection GIT_URL
-                            developerConnection GIT_URL
-                        }
-
-                        licenses {
-                            license {
-                                name LICENSE
-                            }
-                        }
-
-                        developers {
-                            developer {
-                                id DEVELOPER_ID
-                                name DEVELOPER_NAME
-                                email DEVELOPER_EMAIL
-                            }
-                        }
-                    }
-                }.writeTo("build/publications/maven/pom-default.xml")
-            }
+allprojects {
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
         }
     }
 }
+
+//ext {
+//    ARTIFACT_ID = 'UserGuideView'
+//    VERSION_NAME = '1.0.1'
+//    VERSION_CODE = 2
+//
+//    DESCRIPTION = 'an userguide view'
+//
+//    SITE_URL = 'https://github.com/yilylong/UserGuideView'
+//    GIT_URL = 'https://github.com/yilylong/UserGuideView.git'
+//    GROUP_NAME = 'com.zhl.userguideview'
+//    COMPILE_SDK = 23
+//    BUILD_TOOLS = '23.0.1'
+//
+//    MODULE_NAME = 'Userguidelibrary'
+//
+//    LICENSE = 'Apache-2.0'
+//
+//    DEVELOPER_ID = 'yilylong'
+//    DEVELOPER_NAME = 'hailongzhao'
+//    DEVELOPER_EMAIL = 'yilylong@163.com'
+//
+//    IS_UPLOADING = project.getGradle().startParameter.taskNames.any{it.contains('bintrayUpload')}
+//}
+//
+//subprojects {
+//    group = GROUP_NAME
+//    version = VERSION_NAME
+//
+//    if (IS_UPLOADING && project.name in ['Userguidelibrary']) {
+//        println project.name
+//        apply plugin: 'maven'
+//
+//        gradle.taskGraph.whenReady { taskGraph ->
+//            taskGraph.getAllTasks().find {
+//                it.path == ":$project.name:generatePomFileForMavenPublication"
+//            }.doLast {
+//                file("build/publications/maven/pom-default.xml").delete()
+//                println 'Overriding pom-file to make sure we can sync to maven central!'
+//                pom {
+//                    //noinspection GroovyAssignabilityCheck
+//                    project {
+//                        name "$project.name"
+//                        artifactId ARTIFACT_ID
+//                        packaging project.name == 'compiler' ? 'jar' : 'aar'
+//                        description DESCRIPTION
+//                        url SITE_URL
+//                        version VERSION_NAME
+//
+//                        scm {
+//                            url GIT_URL
+//                            connection GIT_URL
+//                            developerConnection GIT_URL
+//                        }
+//
+//                        licenses {
+//                            license {
+//                                name LICENSE
+//                            }
+//                        }
+//
+//                        developers {
+//                            developer {
+//                                id DEVELOPER_ID
+//                                name DEVELOPER_NAME
+//                                email DEVELOPER_EMAIL
+//                            }
+//                        }
+//                    }
+//                }.writeTo("build/publications/maven/pom-default.xml")
+//            }
+//        }
+//    }
+//}
 
 
