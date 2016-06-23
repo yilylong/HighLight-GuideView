@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.zhl.userguideview"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile project(':Userguidelibrary')
+    compile 'com.zhl.cbpullrefresh:CBPullRefreshLibrary:1.0.0'
 }
