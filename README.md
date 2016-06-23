@@ -1,8 +1,6 @@
 # UserGuideView
 用户指引view
 ====
-修改了点东西原本想升级到1.0.1然后上传到jecnter 但是 https://bintray.com/bintray/jcenter 突然访问不了了不知道啥原因
-
 应用推出新功能需要给给用户的提示指引一下，简单的做法让设计给个覆盖层图片盖上去。
 但是android 分辨率众多，不是每个机子都适应。需要很多图片。那是个很麻烦的过程
 使用过@鸿洋 的 hightLight。但是发现在使用到需要给一个gridview 或者 listview 的某个item 设置一个高亮提示的时候。因为hightLight需要
@@ -17,7 +15,7 @@ How To Useage
 ----
 引入依赖
 
-    compile 'com.zhl.userguideview:Userguidelibrary:1.0.0'
+    compile 'com.zhl.userguideview:Userguidelibrary:1.0.1'
 
 布局文件中引入UserGuideView然后：
 
