@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhl.cbpullrefresh.CBPullRefreshListView;
 import com.zhl.userguideview.userguideview.R;
 
 /**
@@ -21,6 +22,7 @@ public class UserGuideTestActivity extends Activity {
     GridView mGridView;
     private UserGuideView guideView;
     private ImageView icon;
+    private CBPullRefreshListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,13 @@ public class UserGuideTestActivity extends Activity {
 //        guideView.setHighLightView(icon);
         mGridView = (GridView) findViewById(R.id.gridview);
         mGridView.setAdapter(new MyAaapter());
+        icon = (ImageView) findViewById(R.id.icon);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guideView.setHighLightView(icon);
+            }
+        });
     }
 
     private class MyAaapter extends BaseAdapter {

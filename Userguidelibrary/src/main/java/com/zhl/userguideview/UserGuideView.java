@@ -224,8 +224,15 @@ public class UserGuideView extends View {
      * @param targetView
      */
     public void setHighLightView(View targetView){
+            if(this.targetView!=null&&targetView!=null&&this.targetView!=targetView){
+                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+                mCanvas.drawPaint(paint);
+                mCanvas.drawColor(maskColor);
+            }
             this.targetView = targetView;
             invalidate();
+            setVisibility(VISIBLE);
     }
 
     /**
