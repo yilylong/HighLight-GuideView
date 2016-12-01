@@ -198,7 +198,12 @@ public class UserGuideView extends View {
             }else{
                 canvas.drawBitmap(jtUpRight,left+vWidth/2-100-margin,jtTop,null);
                 if(tipBitmap!=null){
-                    canvas.drawBitmap(tipBitmap,left+vWidth/2-100-tipBitmap.getWidth()/2,jtTop+jtUpRight.getHeight(),null);
+                    int tipLeft = left+vWidth/2-100-tipBitmap.getWidth()/2;
+                    // 如果提示图片超出屏幕右边界
+                    if(tipLeft+tipBitmap.getWidth()>screenW){
+                        tipLeft = screenW-tipBitmap.getWidth()-borderOffset;
+                    }
+                    canvas.drawBitmap(tipBitmap,tipLeft,jtTop+jtUpRight.getHeight(),null);
                 }
             }
         }else{
@@ -211,7 +216,12 @@ public class UserGuideView extends View {
             }else{
                 canvas.drawBitmap(jtDownRight, left+vWidth / 2-100-margin, jtTop,null);
                 if(tipBitmap!=null){
-                    canvas.drawBitmap(tipBitmap,left+vWidth/2-100-tipBitmap.getWidth()/2-margin,jtTop-tipBitmap.getHeight(),null);
+                    int tipLeft = left+vWidth/2-100-tipBitmap.getWidth()/2-margin;
+                    // 如果提示图片超出屏幕右边界
+                    if(tipLeft+tipBitmap.getWidth()>screenW){
+                        tipLeft = screenW-tipBitmap.getWidth()-borderOffset;
+                    }
+                    canvas.drawBitmap(tipBitmap,tipLeft,jtTop-tipBitmap.getHeight(),null);
                 }
             }
         }
