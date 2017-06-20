@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/yilylong/UserGuideView.svg)](https://jitpack.io/#yilylong/UserGuideView)
 # UserGuideView
 用户指引view
 ====
@@ -10,8 +11,9 @@
 How To Useage
 ----
 引入依赖
-step1.Add it in your root build.gradle at the end of repositories:
 
+step1.Add it in your root build.gradle at the end of repositories:
+-
     allprojects {
 		repositories {
 			...
@@ -20,7 +22,7 @@ step1.Add it in your root build.gradle at the end of repositories:
 	}
 
 Step 2. Add the dependency
-
+-
     dependencies {
 	        compile 'com.github.yilylong:UserGuideView:v1.0.0'
 	}
