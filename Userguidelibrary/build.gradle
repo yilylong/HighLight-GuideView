@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-//apply plugin: 'com.novoda.bintray-release'
-version = "1.0.1"
+
+group='com.github.yilylong'
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 14
@@ -31,150 +31,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
 }
 
-// 上传bintray-------------start
-
-ext {
-    siteUrl = 'https://github.com/yilylong/UserGuideView'
-    gitUrl = 'https://github.com/yilylong/UserGuideView.git'
-    descr = 'a userguide view'
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-task findConventions << {
-    println project.getConvention()
-}
-
-group = 'com.zhl.userguideview'
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'aar'
-            groupId 'com.zhl.userguideview' //自己定义的组名
-            artifactId 'Userguidelibrary'
-
-            name 'UserGuideView'
-            description descr
-            url siteUrl
-            inceptionYear '2016'
-
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-            scm {
-                connection gitUrl
-                url siteUrl
-
-            }
-            developers {
-                developer {
-                    name 'yilylong'
-                    email 'yilylong@163.com'
-                }
-            }
-        }
-
-    }
-}
-
-//获取local.propertes的信息
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    publish = true
-    configurations = ['archives']
-    pkg {
-        //填入 bintray 上对应的 package 信息
-        repo = 'maven'
-        name = 'UserGuideView'
-        vcsUrl = gitUrl
-        websiteUrl = siteUrl
-        licenses = ['Apache-2.0']
-        issueTrackerUrl = 'https://github.com/yilylong/UserGuideView/issues'
-        publicDownloadNumbers = true
-        version {
-            name = '1.0.1'
-            desc = '1.0.1 release'
-            vcsTag = '1.0.1'
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
-        }
-    }
-}
-task createPom {
-    pom {
-        project {
-            packaging 'aar'
-
-            name project.name
-            description descr
-            url siteUrl
-            inceptionYear '2016'
-
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                }
-            }
-            scm {
-                connection gitUrl
-                developerConnection gitUrl
-                url siteUrl
-            }
-            developers {
-                developer {
-                    id 'saschpe'
-                    name 'Sascha Peilicke'
-                    email 'sascha@peilicke.de'
-                }
-            }
-        }
-    }.writeTo("$buildDir/poms/pom-default.xml").writeTo("pom.xml")
-}
-build.dependsOn createPom
-
-// 上传bintray-------------end
-
-//添加
-//publish {
-//    userOrg = 'yilylong'//bintray.com用户名
-//    groupId = 'com.zhl.userguideview'//jcenter上的路径
-//    artifactId = 'UserGuideView'//项目名称
-//    publishVersion = '1.0.1'//版本号
-//    desc = 'an userguide view'//描述
-//    website = 'https://github.com/yilylong/UserGuideView'//网站
-//}
 
 
 

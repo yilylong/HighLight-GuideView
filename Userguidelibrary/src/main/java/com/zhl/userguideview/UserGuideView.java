@@ -19,7 +19,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-
 /**
  * 描述：一个用于“应用新特性”的用户指引view
  * Created by zhaohl on 2015-11-26.
@@ -30,22 +29,23 @@ public class UserGuideView extends View {
     public static final int VIEWSTYLE_OVAL=2;
     public static final int MASKBLURSTYLE_SOLID=0;
     public static final int MASKBLURSTYLE_NORMAL=1;
-    private Bitmap fgBitmap;
-    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft;
-    private Canvas mCanvas;
-    private Paint mPaint;
-    private int screenW, screenH;
+    private Bitmap fgBitmap;// 前景
+    private Bitmap jtUpLeft,jtUpRight,jtDownRight,jtDownLeft,jtDownCenter;// 指示箭头
+    private Canvas mCanvas;// 绘制蒙版层的画布
+    private Paint mPaint;// 绘制蒙版层画笔
+    private int screenW, screenH;// 屏幕宽高
     private View targetView;
     private boolean touchOutsideCancel = true;
-    private int borderOffset=20;
+    private int borderWitdh=10;// 边界余量
+    private int offestMargin=10;// 光圈放大偏移值
     private int margin=40;
     private int highLightStyle = VIEWSTYLE_RECT;
     public int maskblurstyle = MASKBLURSTYLE_SOLID;
     private Bitmap tipBitmap;
     private int radius;
-    private int maskColor = 0x99000000;
+    private int maskColor = 0x99000000;// 蒙版层颜色
     private OnDismissListener onDismissListener;
-    private int statusBarHeight = 0;
+    private int statusBarHeight = 0;// 状态栏高度
 
     public UserGuideView(Context context){
         this(context,null);
@@ -67,11 +67,19 @@ public class UserGuideView extends View {
             }
             array.recycle();
         }
+        // 计算参数
         cal(context);
 
+        // 初始化对象
         init(context);
     }
 
+    /**
+     * 计算参数
+     *
+     * @param context
+     *            上下文环境引用
+     */
     private void cal(Context context) {
         int[] screenSize = MeasureUtil.getScreenSize((Activity) context);
 
@@ -85,6 +93,9 @@ public class UserGuideView extends View {
 		}
     }
 
+    /**
+     * 初始化对象
+     */
     private void init(Context context) {
 
 //        setLayerType(LAYER_TYPE_SOFTWARE,null);
@@ -116,6 +127,7 @@ public class UserGuideView extends View {
         jtDownLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_left);
         jtUpLeft = BitmapFactory.decodeResource(getResources(), R.drawable.jt_up_left);
         jtUpRight = BitmapFactory.decodeResource(getResources(), R.drawable.jt_up_right);
+        jtDownCenter = BitmapFactory.decodeResource(getResources(), R.drawable.jt_down_center);
     }
 
     @Override
@@ -155,19 +167,19 @@ public class UserGuideView extends View {
         Rect tagetRect = new Rect();
         targetView.getGlobalVisibleRect(tagetRect);
         tagetRect.offset(0, -statusBarHeight);
-        left = tagetRect.left;
-        top = tagetRect.top;
-        right = tagetRect.right;
-        bottom = tagetRect.bottom;
+        left = tagetRect.left-offestMargin;
+        top = tagetRect.top-offestMargin;
+        right = tagetRect.right+offestMargin;
+        bottom = tagetRect.bottom+offestMargin;
 
         if(left==0){
-            left+=borderOffset;
+            left+=borderWitdh;
         }else if(top==0){
-            top+=borderOffset;
+            top+=borderWitdh;
         }else if(right==screenW){
-            right-=borderOffset;
+            right-=borderWitdh;
         }else if(bottom==screenH){
-            bottom-=borderOffset;
+            bottom-=borderWitdh;
         }
         switch (highLightStyle){
             case VIEWSTYLE_RECT:
@@ -175,11 +187,11 @@ public class UserGuideView extends View {
                 mCanvas.drawRoundRect(rect, 20, 20, mPaint);
                 break;
             case VIEWSTYLE_CIRCLE:
-                radius = vWidth < vHeight ? vWidth / 2 +2*borderOffset: vHeight / 2+2*borderOffset;
+                radius = vWidth < vHeight ? vWidth / 2 +2*offestMargin: vHeight / 2+2*offestMargin;
                 if(radius<50){
                     radius = 100;
                 }
-                mCanvas.drawCircle(left+vWidth / 2, top+vHeight / 2,radius, mPaint);
+                mCanvas.drawCircle(left+offestMargin+vWidth / 2, top+offestMargin+vHeight / 2,radius, mPaint);
                 break;
             case VIEWSTYLE_OVAL:
                 RectF rectf = new RectF(left,top,right,bottom);
@@ -201,25 +213,30 @@ public class UserGuideView extends View {
                     int tipLeft = left+vWidth/2-100-tipBitmap.getWidth()/2;
                     // 如果提示图片超出屏幕右边界
                     if(tipLeft+tipBitmap.getWidth()>screenW){
-                        tipLeft = screenW-tipBitmap.getWidth()-borderOffset;
+                        tipLeft = screenW-tipBitmap.getWidth()-borderWitdh;
                     }
                     canvas.drawBitmap(tipBitmap,tipLeft,jtTop+jtUpRight.getHeight(),null);
                 }
             }
-        }else{
-            int jtTop = highLightStyle==VIEWSTYLE_CIRCLE?top-radius-margin:top - jtDownLeft.getHeight()-margin;
-            if(right<screenW/2||(screenW/2-left>right-screenW/2)){
+        }else{// bottom
+            int jtTop = highLightStyle==VIEWSTYLE_CIRCLE?top-radius-margin-offestMargin:top - jtDownLeft.getHeight()-margin-offestMargin;
+            if(right<screenW/2||(screenW/2-left>right-screenW/2)){// 左
                 canvas.drawBitmap(jtDownLeft, left+vWidth / 2, jtTop,null);
                 if(tipBitmap!=null){
                     canvas.drawBitmap(tipBitmap,left+vWidth/2,jtTop-tipBitmap.getHeight(),null);
                 }
-            }else{
+            }else if(screenW/2-10<=right-offestMargin-vWidth/2&&right-offestMargin-vWidth/2<=screenW/2+10){// 如果基本在中间(screenW/2-10<=target的中线<=screenW/2+10)
+                canvas.drawBitmap(jtDownCenter, left+offestMargin+vWidth/2-jtDownCenter.getWidth()/2, top-jtDownCenter.getHeight()-offestMargin-margin,null);
+                if(tipBitmap!=null){
+                    canvas.drawBitmap(tipBitmap,left+offestMargin+vWidth/2-tipBitmap.getWidth()/2,top-tipBitmap.getHeight()-offestMargin-tipBitmap.getHeight()-margin,null);
+                }
+            }else{// 右
                 canvas.drawBitmap(jtDownRight, left+vWidth / 2-100-margin, jtTop,null);
                 if(tipBitmap!=null){
                     int tipLeft = left+vWidth/2-100-tipBitmap.getWidth()/2-margin;
                     // 如果提示图片超出屏幕右边界
                     if(tipLeft+tipBitmap.getWidth()>screenW){
-                        tipLeft = screenW-tipBitmap.getWidth()-borderOffset;
+                        tipLeft = screenW-tipBitmap.getWidth()-borderWitdh;
                     }
                     canvas.drawBitmap(tipBitmap,tipLeft,jtTop-tipBitmap.getHeight(),null);
                 }
@@ -254,11 +271,11 @@ public class UserGuideView extends View {
     }
 
 	/**
-     * set offset
-     * @param borderOffset
+     * 设置额外的边框宽度
+     * @param borderWidth
      */
-    public void setBorderOffset(int borderOffset){
-    	this.borderOffset = borderOffset;
+    public void setBorderWidth(int borderWidth){
+    	this.borderWitdh = borderWidth;
     }
     /**
      * set the tip bitmap
@@ -297,6 +314,26 @@ public class UserGuideView extends View {
                 break;
         }
         return true;
+    }
+
+    public int getMargin() {
+        return margin;
+    }
+
+    public void setMargin(int margin) {
+        this.margin = margin;
+    }
+
+    public int getOffestMargin() {
+        return offestMargin;
+    }
+
+    /**
+     * 光圈放大偏移值
+     * @param offestMargin
+     */
+    public void setOffestMargin(int offestMargin) {
+        this.offestMargin = offestMargin;
     }
 
     public void setOnDismissListener(OnDismissListener listener){
