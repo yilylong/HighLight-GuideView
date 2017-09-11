@@ -4,16 +4,22 @@
     <declare-styleable name="UserGuideView">
 
         <attr name="HighlightViewStyle" format="enum">
-            <enum name="rect" value="0"/>
-            <enum name="circle" value="1"/>
-            <enum name="oval" value="2"/>
+            <enum name="rect" value="0" />
+            <enum name="circle" value="1" />
+            <enum name="oval" value="2" />
         </attr>
         <attr name="MaskBlurStyle" format="enum">
-            <enum name="solid" value="0"/>
-            <enum name="normal" value="1"/>
+            <enum name="solid" value="0" />
+            <enum name="normal" value="1" />
         </attr>
         <attr name="tipView" format="reference" />
         <attr name="maskColor" format="reference|color" />
+        <attr name="indicator_arrow_up_left" format="reference" />
+        <attr name="indicator_arrow_up_right" format="reference" />
+        <attr name="indicator_arrow_up_center" format="reference" />
+        <attr name="indicator_arrow_down_left" format="reference" />
+        <attr name="indicator_arrow_down_right" format="reference" />
+        <attr name="indicator_arrow_down_center" format="reference" />
 
     </declare-styleable>
 

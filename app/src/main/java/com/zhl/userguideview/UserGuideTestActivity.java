@@ -21,24 +21,47 @@ public class UserGuideTestActivity extends Activity {
     private String[] datas = new String[]{"收藏","字体大小","软件设置","换肤"};
     GridView mGridView;
     private UserGuideView guideView;
-    private ImageView icon;
+    private ImageView icon ,back,top;
     private CBPullRefreshListView listView;
+    View tipTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_userguide);
         guideView = (UserGuideView) findViewById(R.id.guideView);
+        guideView.setTouchOutsideDismiss(false);
+        tipTextView = LayoutInflater.from(this).inflate(R.layout.custom_tipview,null);
 //        icon = (ImageView) findViewById(R.id.icon);
 //        guideView.setHighLightView(icon);
+//        guideView.setTipView(tipTextView);
         mGridView = (GridView) findViewById(R.id.gridview);
         mGridView.setAdapter(new MyAaapter());
         icon = (ImageView) findViewById(R.id.icon);
+        back = (ImageView) findViewById(R.id.back);
+        top = (ImageView) findViewById(R.id.top);
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                guideView.setTipView(tipTextView,400,200);
                 guideView.setHighLightView(icon);
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guideView.setTipView(tipTextView,400,200);
+                guideView.setHighLightView(back);
+            }
+        });
+        top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guideView.setArrowUpCenter(R.mipmap.up_arrow);
+                guideView.setTipView(R.mipmap.tip_view);
+                guideView.setHighLightView(top);
+            }
+        });
+        guideView.setHightLightView(top,icon,back);
     }
 
     private class MyAaapter extends BaseAdapter {
@@ -70,10 +93,10 @@ public class UserGuideTestActivity extends Activity {
                viewHolder = (ViewHolder) convertView.getTag();
            }
             viewHolder.textView.setText(datas[position]);
-            if(position==3){
-//                guideView.setTipView(BitmapFactory.decodeResource(getResources(),R.mipmap.sidebar_photo));
-                guideView.setHighLightView(convertView);
-            }
+//            if(position==1){
+////                guideView.setTipView(BitmapFactory.decodeResource(getResources(),R.mipmap.sidebar_photo));
+//                guideView.setHighLightView(convertView);
+//            }
            return convertView;
         }
 
