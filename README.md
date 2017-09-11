@@ -6,7 +6,8 @@
 
 ![](/guide1.png)</br>
 ![](/guide2.png)</br>
-![](/guide3.png)
+![](/guide3.png)</br>
+<img src='/GIF.gif'/>
 
 How To Useage
 ----
@@ -24,7 +25,7 @@ step1.Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 -
     dependencies {
-	        compile 'com.github.yilylong:UserGuideView:v1.0.0'
+	        compile 'com.github.yilylong:UserGuideView:v1.0.1'
 	}
 
 
@@ -46,6 +47,20 @@ Step 2. Add the dependency
 
 默认去掉了状态栏高度 <del>当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
 guideView.setStatusBarHeight(0);</del> 修改了状态栏高度的获取方式不需要再调用这个方法。
+
+v1.0.1新增
+-
+支持同时设置多个需要高亮的View并将按顺序显示
+
+    guideView.setHightLightView(top,icon,back);
+
+支持设置指示箭头
+
+    guideView.setArrowUpCenter(R.mipmap.up_arrow);
+
+支持将自定义View作为tipview
+
+    guideView.setTipView(tipTextView,400,200);
 
 详情参考Demo
 
