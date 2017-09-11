@@ -1,11 +1,8 @@
+[![](https://jitpack.io/v/yilylong/UserGuideView.svg)](https://jitpack.io/#yilylong/UserGuideView)
 # UserGuideView
 用户指引view
 ====
-应用推出新功能需要给给用户的提示指引一下，简单的做法让设计给个覆盖层图片盖上去。
-但是android 分辨率众多，不是每个机子都适应。需要很多图片。那是个很麻烦的过程
-使用过@鸿洋 的 hightLight。但是发现在使用到需要给一个gridview 或者 listview 的某个item 设置一个高亮提示的时候。因为hightLight需要
-传入一个需要高亮的view ID 但是gridview 或 listview 的item 里面ID 没法定位某一个view。
-所以改成 传入一个需要高亮的view 根据其位置绘出提示view
+应用推出新功能需要给给用户提示指引一下.传入需要指引的View即可
 
 ![](/guide1.png)</br>
 ![](/guide2.png)</br>
@@ -15,7 +12,21 @@ How To Useage
 ----
 引入依赖
 
-    compile 'com.zhl.userguideview:Userguidelibrary:1.0.1'
+step1.Add it in your root build.gradle at the end of repositories:
+-
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+Step 2. Add the dependency
+-
+    dependencies {
+	        compile 'com.github.yilylong:UserGuideView:v1.0.0'
+	}
+
 
 布局文件中引入UserGuideView然后：
 
