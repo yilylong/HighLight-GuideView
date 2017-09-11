@@ -50,9 +50,10 @@ guideView.setStatusBarHeight(0);</del> 修改了状态栏高度的获取方式�
 
 v1.0.1新增
 -
+
 支持同时设置多个需要高亮的View并将按顺序显示
 
-    guideView.setHightLightView(top,icon,back);
+    guideView.setHightLightView(top,icon,back);
 
 支持设置指示箭头
 
