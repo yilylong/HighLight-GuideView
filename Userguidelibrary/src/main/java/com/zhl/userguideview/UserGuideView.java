@@ -170,42 +170,42 @@ public class UserGuideView extends View {
     }
 
     /**
-     * set indicator arrow center
+     * set indicator arrow up center
      * @param resId
      */
     public void setArrowUpCenter(int resId){
         jtUpCenter = BitmapFactory.decodeResource(getResources(), resId);
     }
     /**
-     * set indicator arrow center
+     * set indicator arrow up left
      * @param resId
      */
     public void setArrowUpLeft(int resId){
         jtUpLeft = BitmapFactory.decodeResource(getResources(), resId);
     }
     /**
-     * set indicator arrow center
+     * set indicator arrow up right
      * @param resId
      */
     public void setArrowUpRight(int resId){
         jtUpRight = BitmapFactory.decodeResource(getResources(), resId);
     }
     /**
-     * set indicator arrow center
+     * set indicator arrow down center
      * @param resId
      */
     public void setArrowDownCenter(int resId){
         jtDownCenter = BitmapFactory.decodeResource(getResources(), resId);
     }
     /**
-     * set indicator arrow center
+     * set indicator arrow down left
      * @param resId
      */
     public void setArrowDownLeft(int resId){
         jtDownLeft = BitmapFactory.decodeResource(getResources(), resId);
     }
     /**
-     * set indicator arrow center
+     * set indicator arrow down right
      * @param resId
      */
     public void setArrowDownRight(int resId){
@@ -365,6 +365,10 @@ public class UserGuideView extends View {
         setVisibility(VISIBLE);
     }
 
+    /**
+     * set hightlight views .it will display them by order
+     * @param targetView
+     */
     public void setHightLightView(View... targetView){
         if(targetView!=null){
             targetViews = new ArrayList<View>();
