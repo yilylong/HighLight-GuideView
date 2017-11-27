@@ -30,6 +30,7 @@ public class UserGuideTestActivity extends Activity {
         setContentView(R.layout.layout_userguide);
         guideView = (UserGuideView) findViewById(R.id.guideView);
         guideView.setTouchOutsideDismiss(false);
+//        guideView.setShowArrow(false);
         tipTextView = LayoutInflater.from(this).inflate(R.layout.custom_tipview,null);
 //        icon = (ImageView) findViewById(R.id.icon);
 //        guideView.setHighLightView(icon);
