@@ -25,7 +25,7 @@ step1.Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 -
     dependencies {
-	        compile 'com.github.yilylong:UserGuideView:1.0.2'
+	        implementation 'com.github.yilylong:UserGuideView:1.0.3'
 	}
 
 
@@ -48,6 +48,22 @@ Step 2. Add the dependency
 默认去掉了状态栏高度 <del>当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
 guideView.setStatusBarHeight(0);</del> 修改了状态栏高度的获取方式不需要再调用这个方法。
 
+v1.0.3新增
+-
+1.0.1可以支持批量设置高亮view 但漏了设置每个高亮view对应的tipview，1.0.3补上
+
+    setHighLightView(LinkedHashMap<View,Integer> targetsWithTipViews);
+    
+实际应用中，tipview 和 箭头等设计图不一样，很难做到精准定位，所以增加了设置每个箭头和tipview位移的方法，来微调位置以达到最合适的布局。
+
+    setArrowDownCenterMoveX(int jtDownCenterMoveX)
+    ...
+等几个方法
+
+v1.0.2新增
+-
+增加是否显示箭头的方法
+    
 v1.0.1新增
 -
 
