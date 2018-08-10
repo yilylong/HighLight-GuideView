@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.zhl.cbpullrefresh.CBPullRefreshListView;
 import com.zhl.userguideview.userguideview.R;
 
+import java.util.LinkedHashMap;
+
 /**
  * 描述：
  * Created by zhaohl on 2015-11-26.
@@ -62,7 +64,15 @@ public class UserGuideTestActivity extends Activity {
                 guideView.setHighLightView(top);
             }
         });
-        guideView.setHightLightView(top,icon,back);
+        LinkedHashMap<View,Integer> targets = new LinkedHashMap<>();
+        targets.put(top,R.mipmap.panda);
+        targets.put(icon,R.mipmap.tip2);
+        targets.put(back,R.mipmap.tip3);
+//        guideView.setHighLightView(top,icon,back);
+        guideView.setArrowUpLeftMoveX(-30);
+//        guideView.setArrowDownCenterMoveX(100);
+//        guideView.setTipViewMoveX(icon,-100);
+        guideView.setHighLightView(targets);
     }
 
     private class MyAaapter extends BaseAdapter {

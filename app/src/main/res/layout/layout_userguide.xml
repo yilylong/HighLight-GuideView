@@ -56,7 +56,7 @@
         android:layout_height="match_parent"
         app:HighlightViewStyle="circle"
         app:MaskBlurStyle="solid"
-        app:maskColor="#94242323"
+        app:maskColor="#b7000000"
         app:tipView="@mipmap/tip_view" />
 
 
