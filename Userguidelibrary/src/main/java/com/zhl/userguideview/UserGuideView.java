@@ -57,6 +57,8 @@ public class UserGuideView extends View {
     private int jtUpLeftMoveX,jtUpRightMoveX,jtUpCenterMoveX, jtDownRightMoveX, jtDownLeftMoveX, jtDownCenterMoveX;
     private int tipViewMoveX;
     private LinkedHashMap<View,Integer> tipViewMoveXMap = new LinkedHashMap<>();
+    private int tipViewMoveY;
+    private LinkedHashMap<View,Integer> tipViewMoveYMap = new LinkedHashMap<>();
 
     public UserGuideView(Context context) {
         this(context, null);
@@ -273,6 +275,7 @@ public class UserGuideView extends View {
         }
 
         tipViewMoveX = getTipViewMoveX();
+        tipViewMoveY = getTipViewMoveY();
 
         // 绘制箭头和提示view
         if (bottom < screenH / 2 || (screenH / 2 - top > bottom - screenH / 2)) {// top
@@ -283,8 +286,8 @@ public class UserGuideView extends View {
                 }
                 int tipTop = showArrow?jtTop + jtUpLeft.getHeight():jtTop;
                 if (tipBitmap != null) {
-                    canvas.drawBitmap(tipBitmap, left + vWidth / 2+tipViewMoveX, tipTop, null);
-                    tipViewHitRect = new Rect(left + vWidth / 2,tipTop,left + vWidth / 2+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
+                    canvas.drawBitmap(tipBitmap, left + vWidth / 2+tipViewMoveX, tipTop+tipViewMoveY, null);
+                    tipViewHitRect = new Rect(left + vWidth / 2+tipViewMoveX,tipTop+tipViewMoveY,left + vWidth / 2+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
                 }
             }else if (screenW / 2 - 10 <= right - offestMargin - vWidth / 2 && right - offestMargin - vWidth / 2 <= screenW / 2 + 10){// center
                 if(showArrow){
@@ -293,8 +296,8 @@ public class UserGuideView extends View {
                 if(tipBitmap!=null){
                     int tipLeft = left + offestMargin + vWidth / 2 - tipBitmap.getWidth() / 2;
                     int tipTop = showArrow?jtTop + jtUpCenter.getHeight():jtTop;
-                    canvas.drawBitmap(tipBitmap,tipLeft+tipViewMoveX ,tipTop , null);
-                    tipViewHitRect = new Rect(tipLeft,tipTop,tipLeft+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
+                    canvas.drawBitmap(tipBitmap,tipLeft+tipViewMoveX ,tipTop+tipViewMoveY , null);
+                    tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
                 }
             } else {
                 if(showArrow){
@@ -307,8 +310,8 @@ public class UserGuideView extends View {
                     if (tipLeft + tipBitmap.getWidth() > screenW) {
                         tipLeft = screenW - tipBitmap.getWidth() - borderWitdh;
                     }
-                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop, null);
-                    tipViewHitRect = new Rect(tipLeft,tipTop,tipLeft+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
+                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop+tipViewMoveY, null);
+                    tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),tipTop+tipBitmap.getHeight());
                 }
             }
         } else {// bottom
@@ -321,8 +324,8 @@ public class UserGuideView extends View {
                 if (tipBitmap != null) {
                     int tipLeft = left + vWidth / 2;
                     int tipTop = showArrow?jtTop - tipBitmap.getHeight():top-tipBitmap.getHeight()-margin;
-                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop, null);
-                    tipViewHitRect = new Rect(tipLeft,tipTop,tipLeft+tipBitmap.getWidth(),showArrow?jtTop:top);
+                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop+tipViewMoveY, null);
+                    tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),showArrow?jtTop:top);
                 }
             } else if (screenW / 2 - 10 <= right - offestMargin - vWidth / 2 && right - offestMargin - vWidth / 2 <= screenW / 2 + 10) {// 如果基本在中间(screenW/2-10<=target的中线<=screenW/2+10)
                 if(showArrow){
@@ -331,8 +334,8 @@ public class UserGuideView extends View {
                 if (tipBitmap != null) {
                     int tipLeft = left + offestMargin + vWidth / 2 - tipBitmap.getWidth() / 2;
                     int tipTop = showArrow?jtDownCenterTop - tipBitmap.getHeight():top-tipBitmap.getHeight()-margin;
-                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop, null);
-                    tipViewHitRect = new Rect(tipLeft,tipTop,tipLeft+tipBitmap.getWidth(),showArrow?jtDownCenterTop:top);
+                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX, tipTop+tipViewMoveY, null);
+                    tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),showArrow?jtDownCenterTop:top);
                 }
             } else {// 右
                 if(showArrow){
@@ -345,8 +348,8 @@ public class UserGuideView extends View {
                         tipLeft = screenW - tipBitmap.getWidth() - borderWitdh;
                     }
                     int tipTop = showArrow?jtTop - tipBitmap.getHeight():top-tipBitmap.getHeight()-margin;
-                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX,tipTop , null);
-                    tipViewHitRect = new Rect(tipLeft,tipTop,tipLeft+tipBitmap.getWidth(),showArrow?jtTop:top);
+                    canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX,tipTop+tipViewMoveY , null);
+                    tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),showArrow?jtTop:top);
                 }
             }
         }
@@ -640,15 +643,29 @@ public class UserGuideView extends View {
     }
 
     /**
-     * 设置tipview的位移 来微调位置 为了不必须要的刷新重绘 限制在setHighlightView()方法前调用生效
+     * 设置tipview的水平位移 来微调位置 为了不必须要的刷新重绘 限制在setHighlightView()方法前调用生效
      * @param highlightView 与tipview对应的高亮view
      * @param tipViewMoveX >0 向右偏移 <0向左偏移
      */
     public void setTipViewMoveX(View highlightView,int tipViewMoveX){
         tipViewMoveXMap.put(highlightView,tipViewMoveX);
     }
+    /**
+     * 设置tipview的垂直位移 来微调位置 为了不必须要的刷新重绘 限制在setHighlightView()方法前调用生效
+     * @param highlightView 与tipview对应的高亮view
+     * @param tipViewMoveY >0 向右偏移 <0向左偏移
+     */
+    public void setTipViewMoveY(View highlightView,int tipViewMoveY){
+        tipViewMoveYMap.put(highlightView,tipViewMoveY);
+    }
+
+
     private int getTipViewMoveX() {
         Integer moveX = tipViewMoveXMap.get(targetView);
         return moveX==null?0:moveX;
+    }
+    private int getTipViewMoveY() {
+        Integer moveY = tipViewMoveYMap.get(targetView);
+        return moveY==null?0:moveY;
     }
 }

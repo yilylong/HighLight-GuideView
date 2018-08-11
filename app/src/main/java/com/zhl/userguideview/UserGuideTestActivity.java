@@ -72,6 +72,7 @@ public class UserGuideTestActivity extends Activity {
         guideView.setArrowUpLeftMoveX(-30);
 //        guideView.setArrowDownCenterMoveX(100);
 //        guideView.setTipViewMoveX(icon,-100);
+//        guideView.setTipViewMoveY(icon,100);
         guideView.setHighLightView(targets);
     }
 
