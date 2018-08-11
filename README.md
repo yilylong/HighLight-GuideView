@@ -57,7 +57,16 @@ v1.0.3新增
 实际应用中，tipview 和 箭头等设计图不一样，很难做到精准定位，所以增加了设置每个箭头和tipview位移的方法，来微调位置以达到最合适的布局。
 
     setArrowDownCenterMoveX(int jtDownCenterMoveX)
-    ...
+    setArrowUpRightMoveX(int jtUpRightMoveX)
+    setArrowUpLeftMoveX(int jtUpLeftMoveX)
+    setArrowUpRightMoveX(int jtUpRightMoveX)
+    setArrowUpCenterMoveX(int jtUpCenterMoveX)
+    setArrowDownRightMoveX(int jtDownRightMoveX)
+    setArrowDownLeftMoveX(int jtDownLeftMoveX)
+    setArrowDownCenterMoveX(int jtDownCenterMoveX)
+    setTipViewMoveX(View highlightView,int tipViewMoveX)
+    setTipViewMoveY(View highlightView,int tipViewMoveY)
+    
 等几个方法
 
 v1.0.2新增
