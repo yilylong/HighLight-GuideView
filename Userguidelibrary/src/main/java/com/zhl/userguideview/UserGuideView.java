@@ -133,7 +133,12 @@ public class UserGuideView extends View {
         int[] screenSize = MeasureUtil.getScreenSize(context);
         screenW = screenSize[0];
         screenH = screenSize[1];
-        try {//楼主之前的获取状态栏的高度为0，未验证所有设备，以下调整
+        
+        // Activity初始化时执行此方法得到的高度是0，需要在onWindowFocusChanged()中执行
+        //Rect frame = new Rect();
+        //((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        //statusBarHeight = frame.top;
+        try {
             Resources resources = Resources.getSystem();
             statusBarHeight = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"));
         } catch (Resources.NotFoundException e) {
