@@ -68,6 +68,7 @@ public class UserGuideTestActivity extends Activity {
         targets.put(top,R.mipmap.panda);
         targets.put(icon,R.mipmap.tip2);
         targets.put(back,R.mipmap.tip3);
+        guideView.setStatusBarHeight(MeasureUtil.getStatuBarHeight(this));
 //        guideView.setHighLightView(top,icon,back);
         guideView.setArrowUpLeftMoveX(-30);
 //        guideView.setArrowDownCenterMoveX(100);
