@@ -350,11 +350,13 @@ public class UserGuideView extends View {
                     canvas.drawBitmap(jtDownRight, left + vWidth / 2 - 100 - margin+jtDownRightMoveX, jtTop, null);
                 }
                 if (tipBitmap != null) {
-                    int tipLeft = left + vWidth / 2 - 100 - tipBitmap.getWidth() / 2 - margin;
+                    
+                    int tipLeft  = screenW - tipBitmap.getWidth() - (screenW - tipBitmap.getWidth())/2;
+                    //int tipLeft = left + vWidth / 2 - 100 - tipBitmap.getWidth() / 2 - margin;
                     // 如果提示图片超出屏幕右边界
-                    if (tipLeft + tipBitmap.getWidth() > screenW) {
-                        tipLeft = screenW - tipBitmap.getWidth() - borderWitdh;
-                    }
+                    //if (tipLeft + tipBitmap.getWidth() > screenW) {
+                     //   tipLeft = screenW - tipBitmap.getWidth() - borderWitdh;
+                    //}
                     int tipTop = showArrow?jtTop - tipBitmap.getHeight():top-tipBitmap.getHeight()-margin;
                     canvas.drawBitmap(tipBitmap, tipLeft+tipViewMoveX,tipTop+tipViewMoveY , null);
                     tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),showArrow?jtTop:top);
