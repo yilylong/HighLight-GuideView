@@ -79,7 +79,9 @@ public class UserGuideTestActivity extends Activity {
         guideView.setArrowDownCenter(R.mipmap.guide_arrow_right);
         guideView.setArrowDownLeft(R.mipmap.guide_arrow_left);
         guideView.setArrowUpLeftMoveX(-30);
-//        guideView.setArrowDownRightMoveX(80);
+        guideView.setArrowDownRightMoveX(100);
+        guideView.setTipViewMoveX(bottomLeft,-50);
+        guideView.setTipViewMoveX(bottomRight,140);
 //        guideView.setArrowDownCenterMoveX(100);
 //        guideView.setTipViewMoveX(icon,-100);
 //        guideView.setTipViewMoveY(icon,100);
