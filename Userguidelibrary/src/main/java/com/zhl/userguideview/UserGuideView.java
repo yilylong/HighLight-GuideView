@@ -321,9 +321,9 @@ public class UserGuideView extends View {
                 }
             }
         } else {// bottom
-            int jtTop = getDownJTtop(jtDownLeft, top, vHeight);
             int jtDownCenterTop = getDownJTtop(jtDownCenter, top, vHeight);
             if (right < screenW / 2 || (screenW / 2 - left > right - screenW / 2)) {// 左
+                int jtTop = getDownJTtop(jtDownLeft, top, vHeight);
                 if(showArrow){
                     canvas.drawBitmap(jtDownLeft, left + vWidth / 2+jtDownLeftMoveX, jtTop, null);
                 }
@@ -344,6 +344,7 @@ public class UserGuideView extends View {
                     tipViewHitRect = new Rect(tipLeft+tipViewMoveX,tipTop+tipViewMoveY,tipLeft+tipBitmap.getWidth(),showArrow?jtDownCenterTop:top);
                 }
             } else {// 右
+                int jtTop = getDownJTtop(jtDownRight, top, vHeight);
                 if(showArrow){
                     canvas.drawBitmap(jtDownRight, left + vWidth / 2 - 100 - margin+jtDownRightMoveX, jtTop, null);
                 }
