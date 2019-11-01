@@ -26,7 +26,7 @@ step1.Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 -
     dependencies {
-	        implementation 'com.github.yilylong:UserGuideView:1.0.5'
+	        implementation 'com.github.yilylong:UserGuideView:1.0.6'
 	}
 
 
@@ -47,6 +47,9 @@ Step 2. Add the dependency
 高亮框边缘模糊效果 属性  app:MaskBlurStyle="solid" normal/solid
 
 需要设置状态栏高度时候调用guideView.setStatusBarHeight(0)
+v1.0.6
+-
+修改右下角箭头位置的计算bug
 
 v1.0.3新增
 -
