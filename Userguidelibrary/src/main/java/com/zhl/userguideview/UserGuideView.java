@@ -1,6 +1,5 @@
 package com.zhl.userguideview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -13,7 +12,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -133,20 +131,20 @@ public class UserGuideView extends View {
         int[] screenSize = MeasureUtil.getScreenSize(context);
         screenW = screenSize[0];
         screenH = screenSize[1];
-        
+        // 实际上在这里无法知道activity是否显示了状态栏，所以不在view里面去计算状态栏高度，通过setStatuBar()方法从外部设置进来即可。
         // Activity初始化时执行此方法得到的高度是0，需要在onWindowFocusChanged()中执行
         //Rect frame = new Rect();
         //((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         //statusBarHeight = frame.top;
-        try {
-            Resources resources = Resources.getSystem();
-            statusBarHeight = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"));
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            statusBarHeight = 44;
-        }
+//        try {
+//            Resources resources = Resources.getSystem();
+//            statusBarHeight = resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"));
+//        } catch (Resources.NotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//            statusBarHeight = 44;
+//        }
     }
 
     /**

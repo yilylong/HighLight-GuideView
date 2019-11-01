@@ -1,3 +1,4 @@
+<a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
 [![](https://jitpack.io/v/yilylong/UserGuideView.svg)](https://jitpack.io/#yilylong/UserGuideView)
 # UserGuideView
 用户指引view
@@ -25,7 +26,7 @@ step1.Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 -
     dependencies {
-	        implementation 'com.github.yilylong:UserGuideView:1.0.4'
+	        implementation 'com.github.yilylong:UserGuideView:1.0.5'
 	}
 
 
@@ -45,8 +46,7 @@ Step 2. Add the dependency
 
 高亮框边缘模糊效果 属性  app:MaskBlurStyle="solid" normal/solid
 
-默认去掉了状态栏高度 <del>当主题设置了android:windowTranslucentStatus = true 需要设置状态栏高度为0
-guideView.setStatusBarHeight(0);</del> 修改了状态栏高度的获取方式不需要再调用这个方法。
+需要设置状态栏高度时候调用guideView.setStatusBarHeight(0)
 
 v1.0.3新增
 -
