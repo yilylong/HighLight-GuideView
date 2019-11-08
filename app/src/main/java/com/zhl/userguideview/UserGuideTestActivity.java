@@ -23,7 +23,7 @@ public class UserGuideTestActivity extends Activity {
     private String[] datas = new String[]{"收藏", "字体大小", "软件设置", "换肤"};
     GridView mGridView;
     private UserGuideView guideView;
-    private ImageView icon, back, top, bottomLeft, bottomRight;
+    private ImageView bottom, topLeft, top,topRight ,bottomLeft, bottomRight;
     private CBPullRefreshListView listView;
     View tipTextView;
 
@@ -41,23 +41,25 @@ public class UserGuideTestActivity extends Activity {
 //        guideView.setTipView(tipTextView);
         mGridView = (GridView) findViewById(R.id.gridview);
         mGridView.setAdapter(new MyAaapter());
-        icon = (ImageView) findViewById(R.id.icon);
-        back = (ImageView) findViewById(R.id.back);
         top = (ImageView) findViewById(R.id.top);
+        topLeft = (ImageView) findViewById(R.id.top_left);
+        topRight = (ImageView) findViewById(R.id.top_right);
+        bottom = (ImageView) findViewById(R.id.bottom);
         bottomLeft = (ImageView) findViewById(R.id.bottomleft);
         bottomRight = (ImageView) findViewById(R.id.bottomRight);
-        icon.setOnClickListener(new View.OnClickListener() {
+        bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guideView.setTipView(tipTextView, 400, 200);
-                guideView.setHighLightView(icon);
+//                guideView.setTipViewMoveX(bottom,-200);
+                guideView.setHighLightView(bottom);
             }
         });
-        back.setOnClickListener(new View.OnClickListener() {
+        topLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guideView.setTipView(tipTextView, 400, 200);
-                guideView.setHighLightView(back);
+                guideView.setHighLightView(topLeft);
             }
         });
         top.setOnClickListener(new View.OnClickListener() {
@@ -69,19 +71,22 @@ public class UserGuideTestActivity extends Activity {
             }
         });
         LinkedHashMap<View, Integer> targets = new LinkedHashMap<>();
-        targets.put(top, R.mipmap.panda);
-        targets.put(icon, R.mipmap.tip2);
-        targets.put(back, R.mipmap.tip3);
+//        targets.put(top, R.mipmap.panda);
+//        targets.put(topLeft, R.mipmap.tip3);
+//        targets.put(topRight, R.mipmap.tip3);
+        targets.put(bottom, R.mipmap.tip2);
         targets.put(bottomLeft, R.mipmap.tip3);
-        targets.put(bottomRight, R.mipmap.tip3);
+        targets.put(bottomRight, R.mipmap.tip_view);
 //        guideView.setHighLightView(top,icon,back);
         guideView.setArrowDownRight(R.mipmap.guide_arrow_right);
-        guideView.setArrowDownCenter(R.mipmap.guide_arrow_right);
+        guideView.setArrowDownCenter(R.mipmap.guide_arrow_left);
         guideView.setArrowDownLeft(R.mipmap.guide_arrow_left);
         guideView.setArrowUpLeftMoveX(-30);
-        guideView.setArrowDownRightMoveX(100);
-        guideView.setTipViewMoveX(bottomLeft,-50);
-        guideView.setTipViewMoveX(bottomRight,140);
+        guideView.setArrowDownRightMoveX(0);
+        guideView.setTipViewMoveX(bottomLeft,-60);
+//        guideView.setTipViewMoveX(bottomRight,140);
+        guideView.setTipViewMoveX(topRight,-50);
+        guideView.setArrowDownLeftMoveX(-20);
 //        guideView.setArrowDownCenterMoveX(100);
 //        guideView.setTipViewMoveX(icon,-100);
 //        guideView.setTipViewMoveY(icon,100);
