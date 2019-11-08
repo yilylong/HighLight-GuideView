@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -20,7 +22,7 @@ public final class MeasureUtil {
     public static final int RATION_HEIGHT = 1;
 
     /**
-     * 获取屏幕尺寸
+     * 获取屏幕尺寸(miui系统在没有底部导航栏的情况下获取的高度仍然是顶部到导航栏的高度所以要加上导航栏高度)
      *
      * @param context context
      * @return 屏幕尺寸像素值，下标为0的值为宽，下标为1的值为高
@@ -29,7 +31,39 @@ public final class MeasureUtil {
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(metrics);
-        return new int[]{metrics.widthPixels, metrics.heightPixels};
+        return new int[]{metrics.widthPixels, metrics.heightPixels + getBottomBarHeight(context)};
+    }
+
+    /**
+     * 是miui系统才加上底部导航栏高度
+      */
+    private static int getBottomBarHeight(Context context) {
+        int bottomHeight = 0;
+        if ("Xiaomi".equalsIgnoreCase(Build.MANUFACTURER)) {
+            //如果虚拟按键已经显示，则不需要补充高度,否则补充高度
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                    && Settings.Global.getInt(context.getContentResolver(), "force_fsg_nav_bar", 0) != 0) {
+                bottomHeight = getNavgitarBarHeight(context);
+                return bottomHeight;
+            }
+        }
+
+        return bottomHeight;
+    }
+
+    /**
+     * 获取底部导航栏高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getNavgitarBarHeight(Context context) {
+        int navigatorBarHeight = 0;
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigatorBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return navigatorBarHeight;
     }
 
     /**
@@ -46,13 +80,13 @@ public final class MeasureUtil {
         // 声明临时变量保存测量值
         int result = 0;
         /*
-		 * 获取测量mode和size
-		 */
+         * 获取测量mode和size
+         */
         int mode = MeasureSpec.getMode(measureSpec);
         int size = MeasureSpec.getSize(measureSpec);
-		/*
-		 * 判断mode的具体值
-		 */
+        /*
+         * 判断mode的具体值
+         */
         switch (mode) {
             case MeasureSpec.EXACTLY:// EXACTLY时直接赋值
                 result = size;
@@ -83,9 +117,9 @@ public final class MeasureUtil {
                     }
                 }
 
-			/*
-			 * AT_MOST时判断size和result的大小取小值
-			 */
+                /*
+                 * AT_MOST时判断size和result的大小取小值
+                 */
                 if (mode == MeasureSpec.AT_MOST) {
                     result = Math.min(result, size);
                 }
@@ -183,10 +217,11 @@ public final class MeasureUtil {
 
     /**
      * 获取状态栏高度
+     *
      * @param context
      * @return
      */
-    public static int getStatuBarHeight(Context context){
+    public static int getStatuBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
