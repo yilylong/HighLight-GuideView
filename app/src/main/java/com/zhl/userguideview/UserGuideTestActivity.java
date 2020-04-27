@@ -10,7 +10,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhl.cbpullrefresh.CBPullRefreshListView;
 import com.zhl.userguideview.userguideview.R;
 
 import java.util.LinkedHashMap;
@@ -24,7 +23,6 @@ public class UserGuideTestActivity extends Activity {
     GridView mGridView;
     private UserGuideView guideView;
     private ImageView bottom, topLeft, top,topRight ,bottomLeft, bottomRight;
-    private CBPullRefreshListView listView;
     View tipTextView;
 
     @Override
