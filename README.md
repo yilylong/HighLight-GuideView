@@ -48,7 +48,7 @@ Step 2. Add the dependency
 
 需要设置状态栏高度时候调用guideView.setStatusBarHeight(0)
 
-v1.0.9
+v1.1.0
 -
 修改屏幕高度计算工具类获取正确的屏幕高度
 
