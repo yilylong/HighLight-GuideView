@@ -1,6 +1,6 @@
 
 [![](https://jitpack.io/v/yilylong/UserGuideView.svg)](https://jitpack.io/#yilylong/UserGuideView)
-# UserGuideView
+# GuideView
 用户指引guideview
 ====
 应用推出新功能需要给给用户提示指引一下.传入需要指引的View即可
