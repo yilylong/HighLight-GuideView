@@ -1,5 +1,3 @@
-# 接Android和鸿蒙开发 也在寻找好的工作机会 yilylong@163.coom
-
 [![](https://jitpack.io/v/yilylong/UserGuideView.svg)](https://jitpack.io/#yilylong/UserGuideView)
 # GuideView
 用户指引guideview
